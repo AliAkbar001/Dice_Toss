@@ -1,8 +1,12 @@
 import { View, Text, ImageSourcePropType, StyleSheet, Image, Pressable, Vibration } from 'react-native'
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
 import Head from '../../assets/Head.jpeg'
 import Tail from '../../assets/Tail.jpeg'
+import Sound from 'react-native-sound'
+import CoinFlipSound from '../../assets/coin-flip.mp3'
 
+Sound.setCategory('Playback')
+const coinSound = new Sound(CoinFlipSound, Sound.MAIN_BUNDLE)
 type CoinProps = PropsWithChildren<{
     imagePath: ImageSourcePropType
 }>
@@ -17,7 +21,16 @@ export default function Coin(): React.JSX.Element {
     const [coinImage, setCoinImage] = useState<ImageSourcePropType>(Head)
     const [coinFace, setCoinFace] = useState<String>('Head')
 
+    useEffect(() => {
+        coinSound.setVolume(10);
+        return () => {
+          coinSound.release();
+        };
+    }, []);
+
     const flipCoinOnTap = () => {
+        coinSound.stop()
+        coinSound.play()
         Vibration.vibrate(10 * 3)
         let randomNumber = Math.floor(Math.random() * 2) + 1;
         if(randomNumber === 1){

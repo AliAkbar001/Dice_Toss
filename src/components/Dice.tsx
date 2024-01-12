@@ -1,12 +1,16 @@
 import { View, Text, ImageSourcePropType, StyleSheet, Image, Pressable, Vibration } from 'react-native'
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
 import FaceOne from '../../assets/FaceOne.jpeg'
 import FaceTwo from '../../assets/FaceTwo.jpeg'
 import FaceThree from '../../assets/FaceThree.jpeg'
 import FaceFour from '../../assets/FaceFour.jpeg'
 import FaceFive from '../../assets/FaceFive.jpeg'
 import FaceSix from '../../assets/FaceSix.jpeg'
+import DiceRollSound from '../../assets/dice.mp3'
+import Sound from 'react-native-sound'
 
+Sound.setCategory('Playback')
+const diceSound = new Sound(DiceRollSound, Sound.MAIN_BUNDLE)
 type DiceProps = PropsWithChildren<{
     imagePath: ImageSourcePropType
 }>
@@ -20,8 +24,16 @@ const RollDice = ({imagePath}: DiceProps):React.JSX.Element =>{
 export default function Dice(): React.JSX.Element {
     const [diceImage, setDiceImage] = useState<ImageSourcePropType>(FaceOne)
     const [diceFace, setDiceFace] = useState<String>('1')
+    useEffect(() => {
+        diceSound.setVolume(10);
+        return () => {
+          diceSound.release();
+        };
+      }, []);
 
     const rollDiceOnTap = () => {
+        diceSound.stop()
+        diceSound.play()
         Vibration.vibrate(10 * 3)
         let randomNumber = Math.floor(Math.random() * 6) + 1;
         switch (randomNumber) {
@@ -55,6 +67,7 @@ export default function Dice(): React.JSX.Element {
             setDiceFace('1')
             break;
         }
+        // 
       }
     
   return (
