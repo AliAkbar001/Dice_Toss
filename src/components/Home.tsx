@@ -7,9 +7,9 @@ type PropsTypes = PropsWithChildren<{
 export default function Home({navigation}: PropsTypes): React.JSX.Element {
   return (
     <View style={styles.buttonContainer}>
-        <Pressable onPress={() => { navigation.navigate('Role Dice')}}>
+        <Pressable onPress={() => { navigation.navigate('Roll Dice')}}>
         <Text style={styles.btnText}>
-            ROLE DICE
+            ROLL DICE
         </Text>
       </Pressable>
         <Pressable onPress={() => { navigation.navigate('Flip Coin')}}>

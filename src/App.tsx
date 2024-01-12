@@ -16,7 +16,7 @@ function App(): React.JSX.Element {
           component={Home}
           options={{title: 'Welcome'}}
         />
-        <Stack.Screen name="Role Dice" component={Dice} />
+        <Stack.Screen name="Roll Dice" component={Dice} />
         <Stack.Screen name="Flip Coin" component={Coin} />
       </Stack.Navigator>
     </NavigationContainer>

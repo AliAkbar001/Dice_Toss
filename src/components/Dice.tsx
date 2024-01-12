@@ -1,4 +1,4 @@
-import { View, Text, ImageSourcePropType, StyleSheet, Image, Pressable } from 'react-native'
+import { View, Text, ImageSourcePropType, StyleSheet, Image, Pressable, Vibration } from 'react-native'
 import React, { PropsWithChildren, useState } from 'react'
 import FaceOne from '../../assets/FaceOne.jpeg'
 import FaceTwo from '../../assets/FaceTwo.jpeg'
@@ -10,7 +10,7 @@ import FaceSix from '../../assets/FaceSix.jpeg'
 type DiceProps = PropsWithChildren<{
     imagePath: ImageSourcePropType
 }>
-const RoleDice = ({imagePath}: DiceProps):React.JSX.Element =>{
+const RollDice = ({imagePath}: DiceProps):React.JSX.Element =>{
     return(
         <View>
             <Image style={styles.diceImage} source={imagePath} />
@@ -22,6 +22,7 @@ export default function Dice(): React.JSX.Element {
     const [diceFace, setDiceFace] = useState<String>('1')
 
     const rollDiceOnTap = () => {
+        Vibration.vibrate(10 * 3)
         let randomNumber = Math.floor(Math.random() * 6) + 1;
         switch (randomNumber) {
           case 1:
@@ -59,7 +60,7 @@ export default function Dice(): React.JSX.Element {
   return (
     <View style={styles.container}>
         <Text style={styles.headingText}>Dice Number: {diceFace}</Text>
-      <RoleDice imagePath={diceImage} />
+      <RollDice imagePath={diceImage} />
       <Pressable onPress={rollDiceOnTap}>
         <Text style={styles.rollDiceBtnText}>
             Roll the dice

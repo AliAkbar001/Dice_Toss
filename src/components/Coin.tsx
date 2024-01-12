@@ -1,4 +1,4 @@
-import { View, Text, ImageSourcePropType, StyleSheet, Image, Pressable } from 'react-native'
+import { View, Text, ImageSourcePropType, StyleSheet, Image, Pressable, Vibration } from 'react-native'
 import React, { PropsWithChildren, useState } from 'react'
 import Head from '../../assets/Head.jpeg'
 import Tail from '../../assets/Tail.jpeg'
@@ -18,6 +18,7 @@ export default function Coin(): React.JSX.Element {
     const [coinFace, setCoinFace] = useState<String>('Head')
 
     const flipCoinOnTap = () => {
+        Vibration.vibrate(10 * 3)
         let randomNumber = Math.floor(Math.random() * 2) + 1;
         if(randomNumber === 1){
             setCoinImage(Head) 
